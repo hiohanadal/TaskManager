@@ -36,10 +36,10 @@ export class TaskListComponent {
   }
 
   updateTasks() {
-    this.taskService.updateTask();
+    this.taskService.updateTasks();
   }
 
-  filterTask(filter: string) {
+  filterTasks(filter: string) {
     if (filter !== '') {
       this.tasks = this.tasks.filter(C => C.name.includes(filter))
     }

@@ -31,7 +31,7 @@ export class TaskService {
     this.saveToLocalStorage();
   }
 
-  updateTask() {
+  updateTasks() {
     this.saveToLocalStorage();
 
   }
