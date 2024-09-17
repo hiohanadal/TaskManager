@@ -10,50 +10,52 @@ export class TaskService {
 
   private tasks: Array<Task> = [];
 
-  getTasks(): Array<Task>{
-    this.tasks=this.getFromLocalStorage();
+  getTasks(): Array<Task> {
+    this.tasks = this.getFromLocalStorage();
 
-    return this.tasks;    
+    return this.tasks;
   }
 
-  getById(id:number): Task | undefined {
-    
-    const task = this.tasks.find(c=> c.id ===id);
+  getById(id: number): Task | undefined {
+
+    const task = this.tasks.find(c => c.id === id);
 
     return task;
   }
 
-  addTask (task: Task){
+  addTask(task: Task) {
+    task.id = this.tasks.length + 1;
+
     this.tasks.push(task);
 
     this.saveToLocalStorage();
   }
 
-  updateTask(){
+  updateTask() {
     this.saveToLocalStorage();
 
   }
 
-  removeTask(task: Task){
+  removeTask(task: Task) {
     const index = this.tasks.indexOf(task);
 
-    if (index != -1){
+    if (index != -1) {
       this.tasks.splice(index, 1);
 
       this.saveToLocalStorage();
-    }    
+    }
   }
 
-  private saveToLocalStorage(){
+  private saveToLocalStorage() {
     const tasksJSON = JSON.stringify(this.tasks);
 
     localStorage.setItem('tasks', tasksJSON);
   }
 
-  private getFromLocalStorage(): Array<Task>{
-    const tasksJSON=localStorage.getItem('tasks');
+  private getFromLocalStorage(): Array<Task> {
+    const tasksJSON = localStorage.getItem('tasks');
 
-    if (!tasksJSON){
+    if (!tasksJSON) {
       return new Array<Task>()
     }
 
