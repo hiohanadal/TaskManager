@@ -13,9 +13,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class TaskDetailsComponent {
 
-  task?: Task;
+  constructor(private router: Router, private route: ActivatedRoute, private taskService: TaskService) { }
 
-  constructor(private route: ActivatedRoute, private taskService: TaskService, private router: Router) { }
+  task?: Task;
 
   ngOnInit() {
 
@@ -25,25 +25,25 @@ export class TaskDetailsComponent {
       this.navigateBack();
     }
 
-    else {
-      this.task = this.taskService.getById(+id);
+    this.task = this.taskService.getById(+id!);
 
-      if (this.task === undefined) {
-        this.navigateBack();
-      }
+    if (this.task === undefined) {
+      this.navigateBack();
     }
   }
 
-  save(){
-    this.taskService.updateTasks();
+  save() {
+    this.taskService.saveToLocalStorage();
+
+    this.navigateBack();
   }
 
-  cancel(){
+  cancel() {
     this.navigateBack();
   }
 
   private navigateBack() {
-    this.router.navigate(['/taskList'], { relativeTo: this.route })
+    this.router.navigate(['/task-list'], { relativeTo: this.route });
   }
 
 }

@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 })
 export class TaskListComponent {
 
+
   constructor(private taskService: TaskService) { }
 
   tasks: Array<Task> = [];
@@ -35,13 +36,13 @@ export class TaskListComponent {
     this.taskService.removeTask(task);
   }
 
-  updateTasks() {
-    this.taskService.updateTasks();
+  updateTask() {
+    this.taskService.saveToLocalStorage();
   }
 
   filterTasks(filter: string) {
     if (filter !== '') {
-      this.tasks = this.tasks.filter(C => C.name.includes(filter))
+      this.tasks = this.tasks.filter(c => c.name?.includes(filter))
     }
     else {
       this.tasks = this.taskService.getTasks();

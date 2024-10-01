@@ -18,9 +18,9 @@ export class TaskService {
 
   getById(id: number): Task | undefined {
 
-    const task = this.tasks.find(c => c.id === id);
+    const taskFound = this.tasks.find(c => c.id === id);
 
-    return task;
+    return taskFound;
   }
 
   addTask(task: Task) {
@@ -31,22 +31,21 @@ export class TaskService {
     this.saveToLocalStorage();
   }
 
-  updateTasks() {
+  updateTask(task: Task) {
     this.saveToLocalStorage();
-
   }
 
   removeTask(task: Task) {
     const index = this.tasks.indexOf(task);
 
-    if (index != -1) {
-      this.tasks.splice(index, 1);
-
-      this.saveToLocalStorage();
+    if (index !== -1) {
+      this.tasks.splice(index, 1);      
     }
+
+    this.saveToLocalStorage();
   }
 
-  private saveToLocalStorage() {
+  public saveToLocalStorage() {
     const tasksJSON = JSON.stringify(this.tasks);
 
     localStorage.setItem('tasks', tasksJSON);
